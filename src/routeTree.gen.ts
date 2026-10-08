@@ -10,33 +10,128 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AccountRouteImport } from './routes/account'
+import { Route as ActivityRouteImport } from './routes/activity'
+import { Route as LoginRouteImport } from './routes/login'
+import { Route as PromotionRouteImport } from './routes/promotion'
+import { Route as TrxRouteImport } from './routes/trx'
+import { Route as WalletRouteImport } from './routes/wallet'
+import { Route as WingoRouteImport } from './routes/wingo'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ActivityRoute = ActivityRouteImport.update({
+  id: '/activity',
+  path: '/activity',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const LoginRoute = LoginRouteImport.update({
+  id: '/login',
+  path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PromotionRoute = PromotionRouteImport.update({
+  id: '/promotion',
+  path: '/promotion',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TrxRoute = TrxRouteImport.update({
+  id: '/trx',
+  path: '/trx',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WalletRoute = WalletRouteImport.update({
+  id: '/wallet',
+  path: '/wallet',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WingoRoute = WingoRouteImport.update({
+  id: '/wingo',
+  path: '/wingo',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/account': typeof AccountRoute
+  '/activity': typeof ActivityRoute
+  '/login': typeof LoginRoute
+  '/promotion': typeof PromotionRoute
+  '/trx': typeof TrxRoute
+  '/wallet': typeof WalletRoute
+  '/wingo': typeof WingoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/account': typeof AccountRoute
+  '/activity': typeof ActivityRoute
+  '/login': typeof LoginRoute
+  '/promotion': typeof PromotionRoute
+  '/trx': typeof TrxRoute
+  '/wallet': typeof WalletRoute
+  '/wingo': typeof WingoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/account': typeof AccountRoute
+  '/activity': typeof ActivityRoute
+  '/login': typeof LoginRoute
+  '/promotion': typeof PromotionRoute
+  '/trx': typeof TrxRoute
+  '/wallet': typeof WalletRoute
+  '/wingo': typeof WingoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/account'
+    | '/activity'
+    | '/login'
+    | '/promotion'
+    | '/trx'
+    | '/wallet'
+    | '/wingo'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/account'
+    | '/activity'
+    | '/login'
+    | '/promotion'
+    | '/trx'
+    | '/wallet'
+    | '/wingo'
+  id:
+    | '__root__'
+    | '/'
+    | '/account'
+    | '/activity'
+    | '/login'
+    | '/promotion'
+    | '/trx'
+    | '/wallet'
+    | '/wingo'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AccountRoute: typeof AccountRoute
+  ActivityRoute: typeof ActivityRoute
+  LoginRoute: typeof LoginRoute
+  PromotionRoute: typeof PromotionRoute
+  TrxRoute: typeof TrxRoute
+  WalletRoute: typeof WalletRoute
+  WingoRoute: typeof WingoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +143,67 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/activity': {
+      id: '/activity'
+      path: '/activity'
+      fullPath: '/activity'
+      preLoaderRoute: typeof ActivityRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/login': {
+      id: '/login'
+      path: '/login'
+      fullPath: '/login'
+      preLoaderRoute: typeof LoginRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/promotion': {
+      id: '/promotion'
+      path: '/promotion'
+      fullPath: '/promotion'
+      preLoaderRoute: typeof PromotionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/trx': {
+      id: '/trx'
+      path: '/trx'
+      fullPath: '/trx'
+      preLoaderRoute: typeof TrxRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wallet': {
+      id: '/wallet'
+      path: '/wallet'
+      fullPath: '/wallet'
+      preLoaderRoute: typeof WalletRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/wingo': {
+      id: '/wingo'
+      path: '/wingo'
+      fullPath: '/wingo'
+      preLoaderRoute: typeof WingoRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AccountRoute: AccountRoute,
+  ActivityRoute: ActivityRoute,
+  LoginRoute: LoginRoute,
+  PromotionRoute: PromotionRoute,
+  TrxRoute: TrxRoute,
+  WalletRoute: WalletRoute,
+  WingoRoute: WingoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
