@@ -128,11 +128,14 @@ export function PriceChart({ m, now }: { m: Market; now: number }) {
 }
 
 export function BetSheet({ bet, onClose }: { bet: { m: Market; side: Side } | null; onClose: () => void }) {
+  return bet ? <BetSheetInner bet={bet} onClose={onClose} /> : null;
+}
+
+function BetSheetInner({ bet, onClose }: { bet: { m: Market; side: Side }; onClose: () => void }) {
   const s = useStore();
   const now = useNow(250);
   const [amt, setAmt] = useState("50");
-  if (!bet) return null;
-  const st = useMarketStateSafe(bet.m, now);
+  const st = useMarketState(bet.m, now);
   const odds = bet.side === "up" ? st.upOdds : st.downOdds;
   const n = Number(amt) || 0;
   const up = bet.side === "up";
@@ -164,7 +167,6 @@ export function BetSheet({ bet, onClose }: { bet: { m: Market; side: Side } | nu
     </BottomSheet>
   );
 }
-const useMarketStateSafe = useMarketState;
 
 export function MyPositions({ marketId }: { marketId?: string }) {
   const s = useStore();
