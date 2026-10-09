@@ -15,6 +15,8 @@ import { Route as ActivityRouteImport } from './routes/activity'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as PromotionRouteImport } from './routes/promotion'
 import { Route as WalletRouteImport } from './routes/wallet'
+import { Route as MarketsIndexRouteImport } from './routes/markets.index'
+import { Route as MarketsIdRouteImport } from './routes/markets.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -46,6 +48,16 @@ const WalletRoute = WalletRouteImport.update({
   path: '/wallet',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MarketsIndexRoute = MarketsIndexRouteImport.update({
+  id: '/markets/',
+  path: '/markets/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketsIdRoute = MarketsIdRouteImport.update({
+  id: '/markets/$id',
+  path: '/markets/$id',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -54,6 +66,8 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/promotion': typeof PromotionRoute
   '/wallet': typeof WalletRoute
+  '/markets/$id': typeof MarketsIdRoute
+  '/markets/': typeof MarketsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -62,6 +76,8 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/promotion': typeof PromotionRoute
   '/wallet': typeof WalletRoute
+  '/markets/$id': typeof MarketsIdRoute
+  '/markets': typeof MarketsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -71,13 +87,30 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/promotion': typeof PromotionRoute
   '/wallet': typeof WalletRoute
+  '/markets/$id': typeof MarketsIdRoute
+  '/markets/': typeof MarketsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/account' | '/activity' | '/login' | '/promotion' | '/wallet'
+    | '/'
+    | '/account'
+    | '/activity'
+    | '/login'
+    | '/promotion'
+    | '/wallet'
+    | '/markets/$id'
+    | '/markets/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/account' | '/activity' | '/login' | '/promotion' | '/wallet'
+  to:
+    | '/'
+    | '/account'
+    | '/activity'
+    | '/login'
+    | '/promotion'
+    | '/wallet'
+    | '/markets/$id'
+    | '/markets'
   id:
     | '__root__'
     | '/'
@@ -86,6 +119,8 @@ export interface FileRouteTypes {
     | '/login'
     | '/promotion'
     | '/wallet'
+    | '/markets/$id'
+    | '/markets/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -95,6 +130,8 @@ export interface RootRouteChildren {
   LoginRoute: typeof LoginRoute
   PromotionRoute: typeof PromotionRoute
   WalletRoute: typeof WalletRoute
+  MarketsIdRoute: typeof MarketsIdRoute
+  MarketsIndexRoute: typeof MarketsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -141,6 +178,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WalletRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/markets/': {
+      id: '/markets/'
+      path: '/markets'
+      fullPath: '/markets/'
+      preLoaderRoute: typeof MarketsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/markets/$id': {
+      id: '/markets/$id'
+      path: '/markets/$id'
+      fullPath: '/markets/$id'
+      preLoaderRoute: typeof MarketsIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -151,6 +202,8 @@ const rootRouteChildren: RootRouteChildren = {
   LoginRoute: LoginRoute,
   PromotionRoute: PromotionRoute,
   WalletRoute: WalletRoute,
+  MarketsIdRoute: MarketsIdRoute,
+  MarketsIndexRoute: MarketsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
