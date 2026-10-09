@@ -1,8 +1,9 @@
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
-import type { BetSel, GameKind } from "./game";
+import type { MarketId, Side } from "./market";
+type GameKind = MarketId;
 
 export type Tx = { id: string; type: "deposit" | "withdraw" | "bet" | "win" | "bonus" | "vault"; amount: number; at: number; note: string };
-export type Bet = { id: string; kind: GameKind; dur: number; period: number; sel: BetSel; amount: number; at: number; settled?: boolean; won?: number; result?: number };
+export type Bet = { id: string; kind: MarketId; dur: number; period: number; sel: Side; odds: number; target: number; amount: number; at: number; settled?: boolean; won?: number; result?: Side };
 type User = { phone: string; uid: string; inviteCode: string };
 
 type State = {
@@ -27,7 +28,7 @@ type Ctx = State & {
   deposit: (amt: number, method: string) => void;
   withdraw: (amt: number) => boolean;
   placeBet: (b: Omit<Bet, "id" | "at">) => boolean;
-  settle: (kind: GameKind, dur: number, period: number, result: number, calc: (b: Bet) => number) => number;
+  settle: (kind: GameKind, dur: number, period: number, result: Side, calc: (b: Bet) => number) => number;
   bonus: (amt: number, note: string) => void;
   checkIn: () => number | null;
   redeem: (code: string) => number | null;

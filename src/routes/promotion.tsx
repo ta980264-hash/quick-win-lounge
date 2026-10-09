@@ -3,7 +3,7 @@ import { toast } from "sonner";
 import { Copy, Users, Crown, Link2 } from "lucide-react";
 import { AppShell } from "@/components/AppShell";
 import { useStore, money } from "@/lib/store";
-import { seeded } from "@/lib/game";
+import { seeded } from "@/lib/market";
 
 export const Route = createFileRoute("/promotion")({
   head: () => ({ meta: [
