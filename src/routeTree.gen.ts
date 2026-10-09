@@ -14,9 +14,9 @@ import { Route as AccountRouteImport } from './routes/account'
 import { Route as ActivityRouteImport } from './routes/activity'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as PromotionRouteImport } from './routes/promotion'
-import { Route as TrxRouteImport } from './routes/trx'
 import { Route as WalletRouteImport } from './routes/wallet'
-import { Route as WingoRouteImport } from './routes/wingo'
+import { Route as MarketsIndexRouteImport } from './routes/markets.index'
+import { Route as MarketsIdRouteImport } from './routes/markets.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -43,19 +43,19 @@ const PromotionRoute = PromotionRouteImport.update({
   path: '/promotion',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TrxRoute = TrxRouteImport.update({
-  id: '/trx',
-  path: '/trx',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const WalletRoute = WalletRouteImport.update({
   id: '/wallet',
   path: '/wallet',
   getParentRoute: () => rootRouteImport,
 } as any)
-const WingoRoute = WingoRouteImport.update({
-  id: '/wingo',
-  path: '/wingo',
+const MarketsIndexRoute = MarketsIndexRouteImport.update({
+  id: '/markets/',
+  path: '/markets/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MarketsIdRoute = MarketsIdRouteImport.update({
+  id: '/markets/$id',
+  path: '/markets/$id',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -65,9 +65,9 @@ export interface FileRoutesByFullPath {
   '/activity': typeof ActivityRoute
   '/login': typeof LoginRoute
   '/promotion': typeof PromotionRoute
-  '/trx': typeof TrxRoute
   '/wallet': typeof WalletRoute
-  '/wingo': typeof WingoRoute
+  '/markets/$id': typeof MarketsIdRoute
+  '/markets/': typeof MarketsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -75,9 +75,9 @@ export interface FileRoutesByTo {
   '/activity': typeof ActivityRoute
   '/login': typeof LoginRoute
   '/promotion': typeof PromotionRoute
-  '/trx': typeof TrxRoute
   '/wallet': typeof WalletRoute
-  '/wingo': typeof WingoRoute
+  '/markets/$id': typeof MarketsIdRoute
+  '/markets': typeof MarketsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -86,9 +86,9 @@ export interface FileRoutesById {
   '/activity': typeof ActivityRoute
   '/login': typeof LoginRoute
   '/promotion': typeof PromotionRoute
-  '/trx': typeof TrxRoute
   '/wallet': typeof WalletRoute
-  '/wingo': typeof WingoRoute
+  '/markets/$id': typeof MarketsIdRoute
+  '/markets/': typeof MarketsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -98,9 +98,9 @@ export interface FileRouteTypes {
     | '/activity'
     | '/login'
     | '/promotion'
-    | '/trx'
     | '/wallet'
-    | '/wingo'
+    | '/markets/$id'
+    | '/markets/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -108,9 +108,9 @@ export interface FileRouteTypes {
     | '/activity'
     | '/login'
     | '/promotion'
-    | '/trx'
     | '/wallet'
-    | '/wingo'
+    | '/markets/$id'
+    | '/markets'
   id:
     | '__root__'
     | '/'
@@ -118,9 +118,9 @@ export interface FileRouteTypes {
     | '/activity'
     | '/login'
     | '/promotion'
-    | '/trx'
     | '/wallet'
-    | '/wingo'
+    | '/markets/$id'
+    | '/markets/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -129,9 +129,9 @@ export interface RootRouteChildren {
   ActivityRoute: typeof ActivityRoute
   LoginRoute: typeof LoginRoute
   PromotionRoute: typeof PromotionRoute
-  TrxRoute: typeof TrxRoute
   WalletRoute: typeof WalletRoute
-  WingoRoute: typeof WingoRoute
+  MarketsIdRoute: typeof MarketsIdRoute
+  MarketsIndexRoute: typeof MarketsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -171,13 +171,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PromotionRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/trx': {
-      id: '/trx'
-      path: '/trx'
-      fullPath: '/trx'
-      preLoaderRoute: typeof TrxRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/wallet': {
       id: '/wallet'
       path: '/wallet'
@@ -185,11 +178,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof WalletRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/wingo': {
-      id: '/wingo'
-      path: '/wingo'
-      fullPath: '/wingo'
-      preLoaderRoute: typeof WingoRouteImport
+    '/markets/': {
+      id: '/markets/'
+      path: '/markets'
+      fullPath: '/markets/'
+      preLoaderRoute: typeof MarketsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/markets/$id': {
+      id: '/markets/$id'
+      path: '/markets/$id'
+      fullPath: '/markets/$id'
+      preLoaderRoute: typeof MarketsIdRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -201,9 +201,9 @@ const rootRouteChildren: RootRouteChildren = {
   ActivityRoute: ActivityRoute,
   LoginRoute: LoginRoute,
   PromotionRoute: PromotionRoute,
-  TrxRoute: TrxRoute,
   WalletRoute: WalletRoute,
-  WingoRoute: WingoRoute,
+  MarketsIdRoute: MarketsIdRoute,
+  MarketsIndexRoute: MarketsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

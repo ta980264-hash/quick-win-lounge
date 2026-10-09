@@ -1,5 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Megaphone, Plus, ArrowUpRight, Timer, Hash } from "lucide-react";
+import { Megaphone, Plus, ArrowUpRight } from "lucide-react";
+import { BetSheet, MarketCard, useNow } from "@/components/markets";
+import { MARKETS, type Market, type Side } from "@/lib/market";
 import { useEffect, useState } from "react";
 import { AppShell } from "@/components/AppShell";
 import { useStore, money } from "@/lib/store";
@@ -9,21 +11,23 @@ import banner2 from "@/assets/banner-2.jpg";
 export const Route = createFileRoute("/")({
   head: () => ({ meta: [
     { title: "TP LOTTERY — Home" },
-    { name: "description", content: "Play Win Go and TRX Win Go color prediction games, claim bonuses and manage your wallet." },
+    { name: "description", content: "Predict Up or Down on live markets, claim bonuses and manage your wallet." },
     { property: "og:title", content: "TP LOTTERY — Home" },
-    { property: "og:description", content: "Play Win Go and TRX Win Go color prediction games." },
+    { property: "og:description", content: "Up/Down prediction markets with 30s, 1m and 5m rounds." },
   ] }),
   component: Home,
 });
 
 const banners = [
-  { img: banner1, title: "Win Go", sub: "Predict the color, win up to 9X" },
+  { img: banner1, title: "Prediction Markets", sub: "Call Up or Down in 30s, 1m and 5m rounds" },
   { img: banner2, title: "First Deposit Bonus", sub: "Get extra rewards today" },
 ];
 
 function Home() {
   const { balance, vault } = useStore();
   const [b, setB] = useState(0);
+  const now = useNow(250);
+  const [bet, setBet] = useState<{ m: Market; side: Side } | null>(null);
   useEffect(() => { const t = setInterval(() => setB((x) => (x + 1) % banners.length), 4000); return () => clearInterval(t); }, []);
 
   return (
@@ -59,19 +63,9 @@ function Home() {
         </div>
 
         <section>
-          <h2 className="mb-3 text-xl font-bold">Lottery games</h2>
-          <div className="grid grid-cols-2 gap-3">
-            <Link to="/wingo" className="rounded-2xl border border-border bg-gradient-card p-4 transition active:scale-95">
-              <div className="mb-3 grid h-12 w-12 place-items-center rounded-xl bg-gradient-red"><Timer className="h-6 w-6 text-primary-foreground" /></div>
-              <p className="font-display text-xl font-bold">Win Go</p>
-              <p className="text-xs text-muted-foreground">1 · 3 · 5 Min</p>
-            </Link>
-            <Link to="/trx" className="rounded-2xl border border-border bg-gradient-card p-4 transition active:scale-95">
-              <div className="mb-3 grid h-12 w-12 place-items-center rounded-xl bg-gradient-red"><Hash className="h-6 w-6 text-primary-foreground" /></div>
-              <p className="font-display text-xl font-bold">TRX Win Go</p>
-              <p className="text-xs text-muted-foreground">Hash-verified results</p>
-            </Link>
-          </div>
+          <div className="mb-3 flex items-center justify-between"><h2 className="text-xl font-bold">Prediction markets</h2><Link to="/markets" className="text-sm font-semibold text-primary">View all</Link></div>
+          <div className="space-y-4">{MARKETS.map((m) => <MarketCard key={m.id} m={m} now={now} onBet={(m, side) => setBet({ m, side })} />)}</div>
+          <BetSheet bet={bet} onClose={() => setBet(null)} />
         </section>
       </div>
     </AppShell>
