@@ -14,9 +14,7 @@ import { Route as AccountRouteImport } from './routes/account'
 import { Route as ActivityRouteImport } from './routes/activity'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as PromotionRouteImport } from './routes/promotion'
-import { Route as TrxRouteImport } from './routes/trx'
 import { Route as WalletRouteImport } from './routes/wallet'
-import { Route as WingoRouteImport } from './routes/wingo'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -43,19 +41,9 @@ const PromotionRoute = PromotionRouteImport.update({
   path: '/promotion',
   getParentRoute: () => rootRouteImport,
 } as any)
-const TrxRoute = TrxRouteImport.update({
-  id: '/trx',
-  path: '/trx',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const WalletRoute = WalletRouteImport.update({
   id: '/wallet',
   path: '/wallet',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const WingoRoute = WingoRouteImport.update({
-  id: '/wingo',
-  path: '/wingo',
   getParentRoute: () => rootRouteImport,
 } as any)
 
@@ -65,9 +53,7 @@ export interface FileRoutesByFullPath {
   '/activity': typeof ActivityRoute
   '/login': typeof LoginRoute
   '/promotion': typeof PromotionRoute
-  '/trx': typeof TrxRoute
   '/wallet': typeof WalletRoute
-  '/wingo': typeof WingoRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -75,9 +61,7 @@ export interface FileRoutesByTo {
   '/activity': typeof ActivityRoute
   '/login': typeof LoginRoute
   '/promotion': typeof PromotionRoute
-  '/trx': typeof TrxRoute
   '/wallet': typeof WalletRoute
-  '/wingo': typeof WingoRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -86,31 +70,14 @@ export interface FileRoutesById {
   '/activity': typeof ActivityRoute
   '/login': typeof LoginRoute
   '/promotion': typeof PromotionRoute
-  '/trx': typeof TrxRoute
   '/wallet': typeof WalletRoute
-  '/wingo': typeof WingoRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    | '/'
-    | '/account'
-    | '/activity'
-    | '/login'
-    | '/promotion'
-    | '/trx'
-    | '/wallet'
-    | '/wingo'
+    '/' | '/account' | '/activity' | '/login' | '/promotion' | '/wallet'
   fileRoutesByTo: FileRoutesByTo
-  to:
-    | '/'
-    | '/account'
-    | '/activity'
-    | '/login'
-    | '/promotion'
-    | '/trx'
-    | '/wallet'
-    | '/wingo'
+  to: '/' | '/account' | '/activity' | '/login' | '/promotion' | '/wallet'
   id:
     | '__root__'
     | '/'
@@ -118,9 +85,7 @@ export interface FileRouteTypes {
     | '/activity'
     | '/login'
     | '/promotion'
-    | '/trx'
     | '/wallet'
-    | '/wingo'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -129,9 +94,7 @@ export interface RootRouteChildren {
   ActivityRoute: typeof ActivityRoute
   LoginRoute: typeof LoginRoute
   PromotionRoute: typeof PromotionRoute
-  TrxRoute: typeof TrxRoute
   WalletRoute: typeof WalletRoute
-  WingoRoute: typeof WingoRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -171,25 +134,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PromotionRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/trx': {
-      id: '/trx'
-      path: '/trx'
-      fullPath: '/trx'
-      preLoaderRoute: typeof TrxRouteImport
-      parentRoute: typeof rootRouteImport
-    }
     '/wallet': {
       id: '/wallet'
       path: '/wallet'
       fullPath: '/wallet'
       preLoaderRoute: typeof WalletRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/wingo': {
-      id: '/wingo'
-      path: '/wingo'
-      fullPath: '/wingo'
-      preLoaderRoute: typeof WingoRouteImport
       parentRoute: typeof rootRouteImport
     }
   }
@@ -201,9 +150,7 @@ const rootRouteChildren: RootRouteChildren = {
   ActivityRoute: ActivityRoute,
   LoginRoute: LoginRoute,
   PromotionRoute: PromotionRoute,
-  TrxRoute: TrxRoute,
   WalletRoute: WalletRoute,
-  WingoRoute: WingoRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
