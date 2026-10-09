@@ -2,6 +2,7 @@ import { Link, useNavigate } from "@tanstack/react-router";
 import { Home, Gift, Share2, Wallet, User, ChevronLeft } from "lucide-react";
 import { useEffect, type ReactNode } from "react";
 import { useStore, money } from "@/lib/store";
+import { MarketSettler } from "./markets";
 
 const tabs = [
   { to: "/", label: "Home", icon: Home },
@@ -30,6 +31,7 @@ export function AppShell({ children, title, back, nav = true }: { children: Reac
         </div>
         <Link to="/wallet" className="shrink-0 rounded-full bg-secondary px-3 py-1 text-sm font-semibold">{money(balance)}</Link>
       </header>
+      <MarketSettler />
       <main className="px-4 py-4">{children}</main>
       {nav && (
         <nav className="fixed inset-x-0 bottom-0 z-40 mx-auto max-w-md border-t border-border bg-surface/95 backdrop-blur">

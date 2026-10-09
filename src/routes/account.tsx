@@ -5,7 +5,7 @@ import { Crown, Copy, Vault, History, Settings, LogOut, ChevronRight, Bell, Lock
 import { AppShell } from "@/components/AppShell";
 import { BottomSheet, btnPrimary, inputCls } from "@/components/Sheet";
 import { useStore, money } from "@/lib/store";
-import { periodLabel, selLabel } from "@/lib/game";
+import { MyPositions } from "@/components/markets";
 
 export const Route = createFileRoute("/account")({
   head: () => ({ meta: [
@@ -34,7 +34,7 @@ function Account() {
 
   const rows = [
     { k: "vault" as const, icon: Vault, label: "Safe vault", value: money(s.vault) },
-    { k: "history" as const, icon: History, label: "Game history", value: `${s.bets.length} bets` },
+    { k: "history" as const, icon: History, label: "Trade history", value: `${s.bets.length} bets` },
     { k: "settings" as const, icon: Settings, label: "Account settings", value: "" },
   ];
 
@@ -80,16 +80,8 @@ function Account() {
         </div>
       </BottomSheet>
 
-      <BottomSheet open={sheet === "history"} onClose={() => setSheet(null)} title="Game history">
-        <div className="max-h-[60vh] space-y-2 overflow-y-auto">
-          {!s.bets.length && <p className="py-6 text-center text-sm text-muted-foreground">No bets yet</p>}
-          {s.bets.map((b) => (
-            <div key={b.id} className="grid grid-cols-[minmax(0,1fr)_auto] gap-2 rounded-xl bg-secondary p-3 text-sm">
-              <div className="min-w-0"><p className="font-semibold">{b.kind === "trx" ? "TRX " : ""}Win Go {b.dur / 60}m · {selLabel(b.sel)}</p><p className="truncate font-mono text-xs text-muted-foreground">{periodLabel(b.dur, b.period)} · {money(b.amount)}</p></div>
-              <span className={`font-bold ${!b.settled ? "text-muted-foreground" : b.won ? "text-win-green" : "text-primary"}`}>{!b.settled ? "Pending" : b.won ? `+${money(b.won)}` : "Lost"}</span>
-            </div>
-          ))}
-        </div>
+      <BottomSheet open={sheet === "history"} onClose={() => setSheet(null)} title="Trade history">
+        <div className="max-h-[60vh] overflow-y-auto"><MyPositions /></div>
       </BottomSheet>
 
       <BottomSheet open={sheet === "settings"} onClose={() => setSheet(null)} title="Account settings">
