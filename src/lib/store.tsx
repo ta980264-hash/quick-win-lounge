@@ -64,7 +64,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     },
     placeBet: (b) => {
       if (b.amount > s.balance) return false;
-      setS((p) => ({ ...p, balance: p.balance - b.amount, bets: [{ ...b, id: uid(), at: Date.now() }, ...p.bets].slice(0, 200), txs: [tx("bet", -b.amount, `${b.kind === "trx" ? "TRX " : ""}Win Go bet`), ...p.txs] }));
+      setS((p) => ({ ...p, balance: p.balance - b.amount, bets: [{ ...b, id: uid(), at: Date.now() }, ...p.bets].slice(0, 200), txs: [tx("bet", -b.amount, `Prediction ${b.sel.toUpperCase()}`), ...p.txs] }));
       return true;
     },
     settle: (kind, dur, period, result, calc) => {
