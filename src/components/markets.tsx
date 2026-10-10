@@ -104,7 +104,7 @@ export function PriceChart({ m, now }: { m: Market; now: number }) {
   const min = Math.min(...all), max = Math.max(...all), pad = (max - min) * 0.15 || 1;
   const y = (v: number) => 100 - ((v - (min - pad)) / (max - min + pad * 2)) * 100;
   const d = pts.map((v, i) => `${(i / (pts.length - 1)) * 100},${y(v)}`).join(" L");
-  const last = pts[pts.length - 1];
+  const last = pts[pts.length - 1] ?? target;
   const up = last >= target;
   const startX = Math.max(0, ((start - (now - span)) / span) * 100);
   return (
@@ -140,9 +140,9 @@ function BetSheetInner({ bet, onClose }: { bet: { m: Market; side: Side }; onClo
   const n = Number(amt) || 0;
   const up = bet.side === "up";
   const confirm = () => {
-    if (n < 1) return toast.error("Enter an amount");
-    if (st.locked) return toast.error("Round is closing — wait for the next one");
-    if (!s.placeBet({ kind: bet.m.id, dur: bet.m.dur, period: st.period, sel: bet.side, odds, target: st.target, amount: n })) return toast.error("Insufficient balance");
+    if (n < 1) { toast.error("Enter an amount"); return; }
+    if (st.locked) { toast.error("Round is closing — wait for the next one"); return; }
+    if (!s.placeBet({ kind: bet.m.id, dur: bet.m.dur, period: st.period, sel: bet.side, odds, target: st.target, amount: n })) { toast.error("Insufficient balance"); return; }
     toast.success(`${up ? "UP" : "DOWN"} ${money(n)} @ ${odds.toFixed(2)}x on ${bet.m.name}`);
     onClose();
   };

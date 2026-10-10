@@ -1,3 +1,4 @@
+import type React from "react";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import type { MarketId, Side } from "./market";
 type GameKind = MarketId;
@@ -35,7 +36,8 @@ type Ctx = State & {
   moveVault: (amt: number, toVault: boolean) => boolean;
 };
 
-const C = createContext<Ctx | null>(null);
+const g = globalThis as unknown as { __tpStoreCtx?: React.Context<Ctx | null> };
+const C = (g.__tpStoreCtx ??= createContext<Ctx | null>(null));
 
 export function StoreProvider({ children }: { children: ReactNode }) {
   const [s, setS] = useState<State>(initial);
@@ -64,7 +66,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
     },
     placeBet: (b) => {
       if (b.amount > s.balance) return false;
-      setS((p) => ({ ...p, balance: p.balance - b.amount, bets: [{ ...b, id: uid(), at: Date.now() }, ...p.bets].slice(0, 200), txs: [tx("bet", -b.amount, `${b.kind === "trx" ? "TRX " : ""}Win Go bet`), ...p.txs] }));
+      setS((p) => ({ ...p, balance: p.balance - b.amount, bets: [{ ...b, id: uid(), at: Date.now() }, ...p.bets].slice(0, 200), txs: [tx("bet", -b.amount, `Prediction ${b.sel.toUpperCase()}`), ...p.txs] }));
       return true;
     },
     settle: (kind, dur, period, result, calc) => {
@@ -97,7 +99,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       const c = code.trim().toUpperCase();
       const codes: Record<string, number> = { TPWELCOME: 50, LUCKY88: 88, REDHOT: 20 };
       if (!codes[c] || s.redeemed.includes(c)) return null;
-      setS((p) => ({ ...p, redeemed: [...p.redeemed, c], balance: p.balance + codes[c], txs: [tx("bonus", codes[c], `Gift code ${c}`), ...p.txs] }));
+      setS((p) => ({ ...p, redeemed: [...p.redeemed, c], balance: p.balance + codes[c]!, txs: [tx("bonus", codes[c]!, `Gift code ${c}`), ...p.txs] }));
       return codes[c];
     },
     moveVault: (amt, toVault) => {
