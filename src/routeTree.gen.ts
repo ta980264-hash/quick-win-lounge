@@ -13,8 +13,10 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AccountRouteImport } from './routes/account'
 import { Route as ActivityRouteImport } from './routes/activity'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as McpRouteImport } from './routes/mcp'
 import { Route as PromotionRouteImport } from './routes/promotion'
 import { Route as WalletRouteImport } from './routes/wallet'
+import { Route as Char91DotwellKnownChar93OauthProtectedResourceRouteImport } from './routes/[.well-known]/oauth-protected-resource'
 import { Route as MarketsIndexRouteImport } from './routes/markets.index'
 import { Route as MarketsIdRouteImport } from './routes/markets.$id'
 
@@ -38,6 +40,11 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const McpRoute = McpRouteImport.update({
+  id: '/mcp',
+  path: '/mcp',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const PromotionRoute = PromotionRouteImport.update({
   id: '/promotion',
   path: '/promotion',
@@ -48,6 +55,12 @@ const WalletRoute = WalletRouteImport.update({
   path: '/wallet',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Char91DotwellKnownChar93OauthProtectedResourceRoute =
+  Char91DotwellKnownChar93OauthProtectedResourceRouteImport.update({
+    id: '/.well-known/oauth-protected-resource',
+    path: '/.well-known/oauth-protected-resource',
+    getParentRoute: () => rootRouteImport,
+  } as any)
 const MarketsIndexRoute = MarketsIndexRouteImport.update({
   id: '/markets/',
   path: '/markets/',
@@ -64,8 +77,10 @@ export interface FileRoutesByFullPath {
   '/account': typeof AccountRoute
   '/activity': typeof ActivityRoute
   '/login': typeof LoginRoute
+  '/mcp': typeof McpRoute
   '/promotion': typeof PromotionRoute
   '/wallet': typeof WalletRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/markets/$id': typeof MarketsIdRoute
   '/markets/': typeof MarketsIndexRoute
 }
@@ -74,8 +89,10 @@ export interface FileRoutesByTo {
   '/account': typeof AccountRoute
   '/activity': typeof ActivityRoute
   '/login': typeof LoginRoute
+  '/mcp': typeof McpRoute
   '/promotion': typeof PromotionRoute
   '/wallet': typeof WalletRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/markets/$id': typeof MarketsIdRoute
   '/markets': typeof MarketsIndexRoute
 }
@@ -85,8 +102,10 @@ export interface FileRoutesById {
   '/account': typeof AccountRoute
   '/activity': typeof ActivityRoute
   '/login': typeof LoginRoute
+  '/mcp': typeof McpRoute
   '/promotion': typeof PromotionRoute
   '/wallet': typeof WalletRoute
+  '/.well-known/oauth-protected-resource': typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   '/markets/$id': typeof MarketsIdRoute
   '/markets/': typeof MarketsIndexRoute
 }
@@ -97,8 +116,10 @@ export interface FileRouteTypes {
     | '/account'
     | '/activity'
     | '/login'
+    | '/mcp'
     | '/promotion'
     | '/wallet'
+    | '/.well-known/oauth-protected-resource'
     | '/markets/$id'
     | '/markets/'
   fileRoutesByTo: FileRoutesByTo
@@ -107,8 +128,10 @@ export interface FileRouteTypes {
     | '/account'
     | '/activity'
     | '/login'
+    | '/mcp'
     | '/promotion'
     | '/wallet'
+    | '/.well-known/oauth-protected-resource'
     | '/markets/$id'
     | '/markets'
   id:
@@ -117,8 +140,10 @@ export interface FileRouteTypes {
     | '/account'
     | '/activity'
     | '/login'
+    | '/mcp'
     | '/promotion'
     | '/wallet'
+    | '/.well-known/oauth-protected-resource'
     | '/markets/$id'
     | '/markets/'
   fileRoutesById: FileRoutesById
@@ -128,8 +153,10 @@ export interface RootRouteChildren {
   AccountRoute: typeof AccountRoute
   ActivityRoute: typeof ActivityRoute
   LoginRoute: typeof LoginRoute
+  McpRoute: typeof McpRoute
   PromotionRoute: typeof PromotionRoute
   WalletRoute: typeof WalletRoute
+  Char91DotwellKnownChar93OauthProtectedResourceRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRoute
   MarketsIdRoute: typeof MarketsIdRoute
   MarketsIndexRoute: typeof MarketsIndexRoute
 }
@@ -164,6 +191,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mcp': {
+      id: '/mcp'
+      path: '/mcp'
+      fullPath: '/mcp'
+      preLoaderRoute: typeof McpRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/promotion': {
       id: '/promotion'
       path: '/promotion'
@@ -176,6 +210,13 @@ declare module '@tanstack/react-router' {
       path: '/wallet'
       fullPath: '/wallet'
       preLoaderRoute: typeof WalletRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/.well-known/oauth-protected-resource': {
+      id: '/.well-known/oauth-protected-resource'
+      path: '/.well-known/oauth-protected-resource'
+      fullPath: '/.well-known/oauth-protected-resource'
+      preLoaderRoute: typeof Char91DotwellKnownChar93OauthProtectedResourceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/markets/': {
@@ -200,8 +241,11 @@ const rootRouteChildren: RootRouteChildren = {
   AccountRoute: AccountRoute,
   ActivityRoute: ActivityRoute,
   LoginRoute: LoginRoute,
+  McpRoute: McpRoute,
   PromotionRoute: PromotionRoute,
   WalletRoute: WalletRoute,
+  Char91DotwellKnownChar93OauthProtectedResourceRoute:
+    Char91DotwellKnownChar93OauthProtectedResourceRoute,
   MarketsIdRoute: MarketsIdRoute,
   MarketsIndexRoute: MarketsIndexRoute,
 }
