@@ -104,7 +104,7 @@ export function PriceChart({ m, now }: { m: Market; now: number }) {
   const min = Math.min(...all), max = Math.max(...all), pad = (max - min) * 0.15 || 1;
   const y = (v: number) => 100 - ((v - (min - pad)) / (max - min + pad * 2)) * 100;
   const d = pts.map((v, i) => `${(i / (pts.length - 1)) * 100},${y(v)}`).join(" L");
-  const last = pts[pts.length - 1];
+  const last = pts[pts.length - 1] ?? target;
   const up = last >= target;
   const startX = Math.max(0, ((start - (now - span)) / span) * 100);
   return (

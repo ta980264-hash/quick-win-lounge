@@ -97,7 +97,7 @@ export function StoreProvider({ children }: { children: ReactNode }) {
       const c = code.trim().toUpperCase();
       const codes: Record<string, number> = { TPWELCOME: 50, LUCKY88: 88, REDHOT: 20 };
       if (!codes[c] || s.redeemed.includes(c)) return null;
-      setS((p) => ({ ...p, redeemed: [...p.redeemed, c], balance: p.balance + codes[c], txs: [tx("bonus", codes[c], `Gift code ${c}`), ...p.txs] }));
+      setS((p) => ({ ...p, redeemed: [...p.redeemed, c], balance: p.balance + codes[c]!, txs: [tx("bonus", codes[c]!, `Gift code ${c}`), ...p.txs] }));
       return codes[c];
     },
     moveVault: (amt, toVault) => {
