@@ -1,3 +1,4 @@
+import type React from "react";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import type { MarketId, Side } from "./market";
 type GameKind = MarketId;
@@ -35,7 +36,8 @@ type Ctx = State & {
   moveVault: (amt: number, toVault: boolean) => boolean;
 };
 
-const C = createContext<Ctx | null>(null);
+const g = globalThis as unknown as { __tpStoreCtx?: React.Context<Ctx | null> };
+const C = (g.__tpStoreCtx ??= createContext<Ctx | null>(null));
 
 export function StoreProvider({ children }: { children: ReactNode }) {
   const [s, setS] = useState<State>(initial);
