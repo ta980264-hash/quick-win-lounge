@@ -37,11 +37,11 @@ function WalletPage() {
 
   const submit = () => {
     const n = Number(amt);
-    if (!n || n < 100) return toast.error("Minimum amount is ₹100");
+    if (!n || n < 100) { toast.error("Minimum amount is ₹100"); return; }
     if (open === "deposit") { s.deposit(n, `${method} deposit`); toast.success(`Deposited ${money(n)}`); }
     else {
-      if (acct.length < 6) return toast.error("Enter your account number");
-      if (!s.withdraw(n)) return toast.error("Insufficient balance");
+      if (acct.length < 6) { toast.error("Enter your account number"); return; }
+      if (!s.withdraw(n)) { toast.error("Insufficient balance"); return; }
       toast.success(`Withdrawal of ${money(n)} submitted`);
     }
     setAmt(""); setOpen(null);

@@ -140,9 +140,9 @@ function BetSheetInner({ bet, onClose }: { bet: { m: Market; side: Side }; onClo
   const n = Number(amt) || 0;
   const up = bet.side === "up";
   const confirm = () => {
-    if (n < 1) return toast.error("Enter an amount");
-    if (st.locked) return toast.error("Round is closing — wait for the next one");
-    if (!s.placeBet({ kind: bet.m.id, dur: bet.m.dur, period: st.period, sel: bet.side, odds, target: st.target, amount: n })) return toast.error("Insufficient balance");
+    if (n < 1) { toast.error("Enter an amount"); return; }
+    if (st.locked) { toast.error("Round is closing — wait for the next one"); return; }
+    if (!s.placeBet({ kind: bet.m.id, dur: bet.m.dur, period: st.period, sel: bet.side, odds, target: st.target, amount: n })) { toast.error("Insufficient balance"); return; }
     toast.success(`${up ? "UP" : "DOWN"} ${money(n)} @ ${odds.toFixed(2)}x on ${bet.m.name}`);
     onClose();
   };

@@ -30,9 +30,9 @@ function Login() {
 
   const submit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (phone.length < 7) return toast.error("Enter a valid phone number");
-    if (pw.length < 6) return toast.error("Password must be at least 6 characters");
-    if (mode === "register" && pw !== pw2) return toast.error("Passwords do not match");
+    if (phone.length < 7) { toast.error("Enter a valid phone number"); return; }
+    if (pw.length < 6) { toast.error("Password must be at least 6 characters"); return; }
+    if (mode === "register" && pw !== pw2) { toast.error("Passwords do not match"); return; }
     login(`${cc} ${phone}`);
     toast.success(mode === "register" ? "Account created — ₹1,000 welcome bonus!" : "Welcome back!");
     nav({ to: "/" });

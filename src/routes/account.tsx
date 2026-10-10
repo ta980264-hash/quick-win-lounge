@@ -27,8 +27,8 @@ function Account() {
 
   const move = (to: boolean) => {
     const n = Number(amt);
-    if (!n) return toast.error("Enter an amount");
-    if (!s.moveVault(n, to)) return toast.error("Insufficient funds");
+    if (!n) { toast.error("Enter an amount"); return; }
+    if (!s.moveVault(n, to)) { toast.error("Insufficient funds"); return; }
     toast.success(to ? "Moved to safe vault" : "Moved to wallet"); setAmt("");
   };
 
