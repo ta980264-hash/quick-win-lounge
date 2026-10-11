@@ -15,6 +15,8 @@ export const Route = createFileRoute("/wallet")({
     { name: "description", content: "Check your balance, deposit, withdraw and view transaction history." },
     { property: "og:title", content: "Wallet — TP LOTTERY" },
     { property: "og:description", content: "Balance, deposits, withdrawals and history." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
   ] }),
   component: WalletPage,
 });

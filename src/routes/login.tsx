@@ -11,6 +11,8 @@ export const Route = createFileRoute("/login")({
     { name: "description", content: "Sign in to TP LOTTERY with your phone number." },
     { property: "og:title", content: "Log in — TP LOTTERY" },
     { property: "og:description", content: "Sign in to TP LOTTERY with your phone number." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
   ] }),
   component: Login,
 });

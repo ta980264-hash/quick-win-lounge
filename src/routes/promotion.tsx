@@ -11,6 +11,8 @@ export const Route = createFileRoute("/promotion")({
     { name: "description", content: "Invite friends, track subordinates and earn agent commissions." },
     { property: "og:title", content: "Promotion & Referrals — TP LOTTERY" },
     { property: "og:description", content: "Invite friends and earn commissions." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
   ] }),
   component: Promotion,
 });

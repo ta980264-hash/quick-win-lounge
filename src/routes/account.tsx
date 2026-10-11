@@ -13,6 +13,8 @@ export const Route = createFileRoute("/account")({
     { name: "description", content: "Profile, VIP status, safe vault and game history." },
     { property: "og:title", content: "My Account — TP LOTTERY" },
     { property: "og:description", content: "Profile, VIP status, safe vault and game history." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
   ] }),
   component: Account,
 });
