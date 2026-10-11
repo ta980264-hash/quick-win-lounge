@@ -8,3 +8,6 @@
 > Commits you push to the connected branch sync back to Lovable and show up in
 > the editor, so keep the branch in a working state.
 <!-- LOVABLE:END -->
+
+- Both market routes render the shared TradingScreen so selectors, charts and record tabs stay consistent.
+- Load lightweight-charts dynamically in a browser effect and resolve chart colors from global semantic tokens; this keeps canvas code out of SSR and preserves the theme.

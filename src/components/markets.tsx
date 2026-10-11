@@ -168,10 +168,10 @@ function BetSheetInner({ bet, onClose }: { bet: { m: Market; side: Side }; onClo
   );
 }
 
-export function MyPositions({ marketId }: { marketId?: string }) {
+export function MyPositions({ marketId, status = "all" }: { marketId?: string; status?: "all" | "open" | "settled" }) {
   const s = useStore();
-  const list = s.bets.filter((b) => !marketId || b.kind === marketId).slice(0, 30);
-  if (!list.length) return <p className="rounded-2xl bg-card p-6 text-center text-sm text-muted-foreground"><Activity className="mx-auto mb-2 h-5 w-5" />No positions yet</p>;
+  const list = s.bets.filter((b) => (!marketId || b.kind === marketId) && (status === "all" || (status === "settled" ? b.settled : !b.settled))).slice(0, 30);
+  if (!list.length) return <p className="py-8 text-center text-sm text-muted-foreground"><Activity className="mx-auto mb-2 h-5 w-5" />{status === "settled" ? "No completed trades yet" : status === "open" ? "No open positions" : "No positions yet"}</p>;
   return (
     <div className="space-y-2">
       {list.map((b) => {
