@@ -12,6 +12,8 @@ export const Route = createFileRoute("/activity")({
     { name: "description", content: "Claim daily sign-in rewards, bonuses and redeem gift codes." },
     { property: "og:title", content: "Activity & Bonuses — TP LOTTERY" },
     { property: "og:description", content: "Daily rewards and gift codes." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
   ] }),
   component: Activity,
 });

@@ -31,6 +31,7 @@ export function CandlestickChart({ m, now, target }: { m: Market; now: number; t
       const green = themeColor("--win-green"), red = themeColor("--win-red");
       const chart = createChart(host.current, {
         autoSize: true,
+        localization: { locale: "en-US" },
         layout: { background: { type: ColorType.Solid, color: themeColor("--background") }, textColor: themeColor("--muted-foreground"), fontFamily: "Manrope", fontSize: 10, attributionLogo: true },
         grid: { vertLines: { color: themeColor("--surface") }, horzLines: { color: themeColor("--surface") } },
         rightPriceScale: { borderColor: themeColor("--border"), scaleMargins: { top: 0.08, bottom: 0.25 } },

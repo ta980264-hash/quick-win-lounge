@@ -14,6 +14,8 @@ export const Route = createFileRoute("/")({
     { name: "description", content: "Predict Up or Down on live markets, claim bonuses and manage your wallet." },
     { property: "og:title", content: "TP LOTTERY — Home" },
     { property: "og:description", content: "Up/Down prediction markets with 30s, 1m and 5m rounds." },
+    { property: "og:type", content: "website" },
+    { name: "twitter:card", content: "summary_large_image" },
   ] }),
   component: Home,
 });
