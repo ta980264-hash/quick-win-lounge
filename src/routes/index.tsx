@@ -1,10 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Megaphone, Plus, ArrowUpRight } from "lucide-react";
+import { Megaphone } from "lucide-react";
 import { BetSheet, MarketCard, useNow } from "@/components/markets";
 import { MARKETS, type Market, type Side } from "@/lib/market";
 import { useEffect, useState } from "react";
 import { AppShell } from "@/components/AppShell";
-import { useStore, money } from "@/lib/store";
 import banner1 from "@/assets/banner-1.jpg";
 import banner2 from "@/assets/banner-2.jpg";
 
@@ -26,7 +25,6 @@ const banners = [
 ];
 
 function Home() {
-  const { balance, vault } = useStore();
   const [b, setB] = useState(0);
   const now = useNow(250);
   const [bet, setBet] = useState<{ m: Market; side: Side } | null>(null);
@@ -52,16 +50,6 @@ function Home() {
         <div className="flex items-center gap-2 overflow-hidden rounded-full bg-card px-3 py-2 text-sm">
           <Megaphone className="h-4 w-4 shrink-0 text-primary" />
           <div className="overflow-hidden"><p className="animate-marquee whitespace-nowrap">Welcome to TP LOTTERY! Use gift code TPWELCOME for a free bonus · Daily sign-in rewards now live · Invite friends and earn commission</p></div>
-        </div>
-
-        <div className="rounded-2xl bg-gradient-red p-4 shadow-red text-primary-foreground">
-          <p className="text-sm opacity-80">Wallet balance</p>
-          <p className="font-display text-4xl font-bold">{money(balance)}</p>
-          <p className="text-xs opacity-80">Safe vault: {money(vault)}</p>
-          <div className="mt-3 grid grid-cols-2 gap-2">
-            <Link to="/wallet" search={{ action: "deposit" }} className="flex items-center justify-center gap-1 rounded-xl bg-background/20 py-2 font-semibold"><Plus className="h-4 w-4" />Deposit</Link>
-            <Link to="/wallet" search={{ action: "withdraw" }} className="flex items-center justify-center gap-1 rounded-xl bg-background/20 py-2 font-semibold"><ArrowUpRight className="h-4 w-4" />Withdraw</Link>
-          </div>
         </div>
 
         <section>
