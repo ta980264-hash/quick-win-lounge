@@ -1,10 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { Megaphone, Plus, ArrowUpRight } from "lucide-react";
+import { Megaphone } from "lucide-react";
 import { BetSheet, MarketCard, useNow } from "@/components/markets";
 import { MARKETS, type Market, type Side } from "@/lib/market";
 import { useEffect, useState } from "react";
 import { AppShell } from "@/components/AppShell";
-import { useStore, money } from "@/lib/store";
 import banner1 from "@/assets/banner-1.jpg";
 import banner2 from "@/assets/banner-2.jpg";
 
@@ -26,7 +25,6 @@ const banners = [
 ];
 
 function Home() {
-  const { balance, vault } = useStore();
   const [b, setB] = useState(0);
   const now = useNow(250);
   const [bet, setBet] = useState<{ m: Market; side: Side } | null>(null);
