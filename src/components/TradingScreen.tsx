@@ -77,8 +77,8 @@ export function TradingScreen({ m }: { m: Market }) {
       </div>
     </div>
     <div className="fixed inset-x-0 bottom-0 z-40 mx-auto grid max-w-md grid-cols-2 gap-3 border-t border-border bg-surface/95 p-4 backdrop-blur">
-      <Button disabled={st.locked} onClick={() => setBet({ m, side: "up" })} className="h-12 bg-win-green font-bold text-primary-foreground hover:bg-win-green/90"><TrendingUp />Up · {st.upOdds.toFixed(2)}x</Button>
-      <Button disabled={st.locked} onClick={() => setBet({ m, side: "down" })} className="h-12 bg-win-red font-bold text-primary-foreground hover:bg-win-red/90"><TrendingDown />Down · {st.downOdds.toFixed(2)}x</Button>
+      <Button disabled={st.locked} onClick={() => setBet({ m, side: "up" })} className="h-12 bg-win-green font-bold text-primary-foreground hover:bg-win-green/90"><TrendingUp />Buy Up · {st.upOdds.toFixed(2)}x</Button>
+      <Button disabled={st.locked} onClick={() => setBet({ m, side: "down" })} className="h-12 bg-win-red font-bold text-primary-foreground hover:bg-win-red/90"><TrendingDown />Sell Down · {st.downOdds.toFixed(2)}x</Button>
     </div>
     <BetSheet bet={bet} onClose={() => setBet(null)} />
   </AppShell>;
