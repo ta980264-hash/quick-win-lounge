@@ -6,6 +6,7 @@ import { AppShell } from "@/components/AppShell";
 import { BottomSheet, btnPrimary, inputCls } from "@/components/Sheet";
 import { useStore, money } from "@/lib/store";
 import { MyPositions } from "@/components/markets";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/account")({
   head: () => ({ meta: [
@@ -68,7 +69,7 @@ function Account() {
           ))}
         </div>
 
-        <button onClick={() => { s.logout(); nav({ to: "/login" }); }} className="flex w-full items-center justify-center gap-2 rounded-xl border border-primary py-3 font-semibold text-primary"><LogOut className="h-4 w-4" />Log out</button>
+        <button onClick={async () => { await supabase.auth.signOut(); s.logout(); nav({ to: "/login", replace: true }); }} className="flex w-full items-center justify-center gap-2 rounded-xl border border-primary py-3 font-semibold text-primary"><LogOut className="h-4 w-4" />Log out</button>
       </div>
 
       <BottomSheet open={sheet === "vault"} onClose={() => setSheet(null)} title="Safe vault">
