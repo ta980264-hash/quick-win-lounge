@@ -7,6 +7,7 @@ import { AppShell } from "@/components/AppShell";
 import { BottomSheet, btnPrimary, inputCls } from "@/components/Sheet";
 import { TxList } from "@/components/TxList";
 import { useStore, money } from "@/lib/store";
+import { supabase } from "@/integrations/supabase/client";
 
 export const Route = createFileRoute("/wallet")({
   validateSearch: z.object({ action: z.enum(["deposit", "withdraw"]).optional() }),
@@ -37,13 +38,20 @@ function WalletPage() {
   const dep = s.txs.filter((t) => t.type === "deposit").reduce((a, t) => a + t.amount, 0);
   const wd = -s.txs.filter((t) => t.type === "withdraw").reduce((a, t) => a + t.amount, 0);
 
+  const record = async (type: "deposit" | "withdraw", amount: number, m: string) => {
+    const { data } = await supabase.auth.getUser();
+    if (!data.user) return;
+    await supabase.from("transaction_requests").insert({ user_id: data.user.id, email: data.user.email, type, amount, method: m });
+  };
+
   const submit = () => {
     const n = Number(amt);
     if (!n || n < 100) { toast.error("Minimum amount is ₹100"); return; }
-    if (open === "deposit") { s.deposit(n, `${method} deposit`); toast.success(`Deposited ${money(n)}`); }
+    if (open === "deposit") { s.deposit(n, `${method} deposit`); void record("deposit", n, method ?? ""); toast.success(`Deposited ${money(n)}`); }
     else {
       if (acct.length < 6) { toast.error("Enter your account number"); return; }
       if (!s.withdraw(n)) { toast.error("Insufficient balance"); return; }
+      void record("withdraw", n, `Bank ${acct}`);
       toast.success(`Withdrawal of ${money(n)} submitted`);
     }
     setAmt(""); setOpen(null);
