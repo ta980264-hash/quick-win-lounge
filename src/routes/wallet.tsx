@@ -41,7 +41,7 @@ function WalletPage() {
   const record = async (type: "deposit" | "withdraw", amount: number, m: string) => {
     const { data } = await supabase.auth.getUser();
     if (!data.user) return;
-    await supabase.from("transaction_requests").insert({ user_id: data.user.id, email: data.user.email, type, amount, method: m });
+    await supabase.from("transaction_requests").insert({ user_id: data.user.id, email: data.user.email ?? null, type, amount, method: m });
   };
 
   const submit = () => {
